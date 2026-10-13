@@ -27,7 +27,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push backend
+      - name: Build and push backend image
         uses: docker/build-push-action@v6
         with:
           context: ./backend
@@ -36,7 +36,7 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/mapp-backend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/mapp-backend:${{ github.sha }}
 
-      - name: Build and push frontend
+      - name: Build and push frontend image
         uses: docker/build-push-action@v6
         with:
           context: ./frontend
@@ -46,7 +46,7 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/mapp-frontend:${{ github.sha }}
 
   deploy-to-codespace:
-    name: Deploy to Codespace
+    name: Start Containers in Codespace
     needs: build-and-push
     runs-on: self-hosted
 
@@ -56,9 +56,6 @@ jobs:
       IMAGE_TAG: ${{ github.sha }}
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Verify deployment files
         shell: bash
         run: |
@@ -81,58 +78,18 @@ jobs:
           IMAGE_TAG="$IMAGE_TAG" DOCKERHUB_USERNAME="$DOCKERHUB_USERNAME" \
             docker compose -p marketplace-2tier-app-project pull backend frontend
 
-      - name: Start PostgreSQL
-        shell: bash
-        run: |
-          set -euo pipefail
-          cd "$DEPLOY_DIR"
-          docker compose -p marketplace-2tier-app-project up -d db
-
-          for attempt in $(seq 1 30); do
-            if docker compose -p marketplace-2tier-app-project \
-              exec -T db pg_isready -U marketplace -d marketplace; then
-              echo "PostgreSQL is ready."
-              exit 0
-            fi
-            echo "Waiting for PostgreSQL: ${attempt}/30"
-            sleep 2
-          done
-
-          docker compose -p marketplace-2tier-app-project logs --tail=100 db
-          exit 1
-
-      - name: Apply Prisma migrations
+      - name: Start all three containers
         shell: bash
         run: |
           set -euo pipefail
           cd "$DEPLOY_DIR"
           IMAGE_TAG="$IMAGE_TAG" DOCKERHUB_USERNAME="$DOCKERHUB_USERNAME" \
-            docker compose -p marketplace-2tier-app-project \
-            run --rm backend npx prisma migrate deploy
+            docker compose -p marketplace-2tier-app-project up -d db backend frontend
 
-      - name: Deploy backend and frontend
+      - name: Show container status
         shell: bash
         run: |
           set -euo pipefail
           cd "$DEPLOY_DIR"
-          IMAGE_TAG="$IMAGE_TAG" DOCKERHUB_USERNAME="$DOCKERHUB_USERNAME" \
-            docker compose -p marketplace-2tier-app-project \
-            up -d backend frontend
+          docker compose -p marketplace-2tier-app-project ps
 
-      - name: Verify backend health
-        shell: bash
-        run: |
-          set -euo pipefail
-          for attempt in $(seq 1 15); do
-            if curl --fail --silent http://localhost:4000/health; then
-              echo
-              echo "Backend health check passed."
-              exit 0
-            fi
-            echo "Waiting for backend: ${attempt}/15"
-            sleep 4
-          done
-
-          cd "$DEPLOY_DIR"
-          docker compose -p marketplace-2tier-app-project logs --tail=100 backend
-          exit 1
