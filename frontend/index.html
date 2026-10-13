@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>MarketPlace</title>
+
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  >
+</head>
+
+<body>
+
+  <h1>MarketPlace</h1>
+
+  <section>
+    <h2>Backend Health</h2>
+
+    <button onclick="checkHealth()">
+      Check Backend
+    </button>
+
+    <p id="health">
+      Not checked yet
+    </p>
+  </section>
+
+
+  <section>
+    <h2>Restaurants</h2>
+
+    <button onclick="loadRestaurants()">
+      Load Restaurants
+    </button>
+
+    <div id="restaurants"></div>
+  </section>
+
+
+  <section>
+    <h2>Create Order</h2>
+
+    <label>
+      Restaurant ID:
+      <input
+        id="restaurantId"
+        type="number"
+      >
+    </label>
+
+    <br><br>
+
+    <label>
+      Menu Item ID:
+      <input
+        id="menuItemId"
+        type="number"
+      >
+    </label>
+
+    <br><br>
+
+    <label>
+      Quantity:
+      <input
+        id="quantity"
+        type="number"
+        value="1"
+        min="1"
+      >
+    </label>
+
+    <br><br>
+
+    <button onclick="createOrder()">
+      Create Order
+    </button>
+
+    <p id="orderResult"></p>
+  </section>
+
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+
+</body>
+
+</html>

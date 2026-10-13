@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+node_modules/
+actions-runner/
+dist/
+coverage/
+*.log
+npm-debug.log*
+.DS_Store
+.vscode/
