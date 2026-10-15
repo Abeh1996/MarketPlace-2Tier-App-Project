@@ -59,7 +59,19 @@ The actual API routing path is determined by the frontend API URL and the Nginx 
 
 ## 3. Nginx Configuration and HTTP Traffic Handling
 
-Nginx is part of the frontend delivery path. It serves the frontend files(index.html, styles.css  and front app.js ) to the browser and acts as a reverse proxy for backend requests.
+Nginx is part of the frontend delivery path. It serves the frontend files (index.html, styles.css  and front app.js ) to the browser and acts as a reverse proxy for backend requests.
+- Nginx listens on port 80 inside the frontend container. Port 80 is mapped to port 5500 of the frontend container.
+- When users request the frontend page on port 5500 using the frontend URL(That is, the browser requests /), nginx returns index.html.
+  <img width="848" height="289" alt="image" src="https://github.com/user-attachments/assets/eff1d9d4-c099-4707-9e97-cdfb383451bb" />
+- The browser reads the index.html file and discovers references to /styles.css and /app.js. The browser then makes additional requests for these files. Nginx serves the CSS and JavaScript files from the same document root
+- The frontend docker image copies files to /usr/share/nginx/html.
+  
+/usr/share/nginx/html/
+├── index.html
+├── styles.css
+├── app.js
+└── config.js
+- 
 
 
 The configuration should be reviewed to identify:
