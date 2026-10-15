@@ -23,7 +23,7 @@ The project also documents real troubleshooting activities involving runner conf
 - Investigate and resolve service connectivity and database authentication problems.
 - Verify application functionality and database persistence through practical tests.
 
-## 2. Architecture
+#### 2. Architecture
 
 The architecture separates the CI/CD process from the application's runtime request flow.
 
