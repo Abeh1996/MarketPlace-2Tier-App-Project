@@ -60,14 +60,17 @@ The actual API routing path is determined by the frontend API URL and the Nginx 
 ## 3. Nginx Configuration and HTTP Traffic Handling
 
 Nginx is part of the frontend delivery path. It serves the frontend files (index.html, styles.css  and front app.js ) to the browser and acts as a reverse proxy for backend requests.
+- The frontend docker image copies all frontend files to /usr/share/nginx/html.
 - Nginx listens on port 80 inside the frontend container. Port 80 is mapped to port 5500 of the frontend container.
 - When users request the frontend page on port 5500 using the frontend URL(That is, the browser requests /), nginx returns index.html.
   <img width="848" height="289" alt="image" src="https://github.com/user-attachments/assets/eff1d9d4-c099-4707-9e97-cdfb383451bb" />
 - The browser reads the index.html file and discovers references to /styles.css and /app.js. The browser then makes additional requests for these files. Nginx serves the CSS and JavaScript files from the same document root
-- The frontend docker image copies files to /usr/share/nginx/html.
-  <img width="351" height="191" alt="image" src="https://github.com/user-attachments/assets/726dfde6-5497-4a33-b18d-8e322e290faa" />
 
-
+Important:
+1. Nginx does not execute your frontend JavaScript. It serves the files to the browser, and the browser executes the JavaScript.
+2. The try_files fallback is particularly useful for frontend routes. If a user opens a path such as /restaurants, Nginx can return index.html when no corresponding file exists.
+- As a reverse proxy If the user then clicks on restaurants tab or health check tab the request "GET /api/restaurants" or "GET /health" is forwarded to nginx , nginx then uses its' location parameter to know exactly how to route the request to the corresponding backend API. 
+Note: The browser does not directly call the backend, insteads it calls /api/restaurants or /health. Therefore no need to use the backend CORS in this case
 
 
 The configuration should be reviewed to identify:
