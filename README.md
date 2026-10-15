@@ -65,13 +65,9 @@ Nginx is part of the frontend delivery path. It serves the frontend files (index
   <img width="848" height="289" alt="image" src="https://github.com/user-attachments/assets/eff1d9d4-c099-4707-9e97-cdfb383451bb" />
 - The browser reads the index.html file and discovers references to /styles.css and /app.js. The browser then makes additional requests for these files. Nginx serves the CSS and JavaScript files from the same document root
 - The frontend docker image copies files to /usr/share/nginx/html.
-  
-/usr/share/nginx/html/
-├── index.html
-├── styles.css
-├── app.js
-└── config.js
-- 
+  <img width="351" height="191" alt="image" src="https://github.com/user-attachments/assets/726dfde6-5497-4a33-b18d-8e322e290faa" />
+
+
 
 
 The configuration should be reviewed to identify:
