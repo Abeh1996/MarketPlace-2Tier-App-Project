@@ -61,7 +61,7 @@ The actual API routing path is determined by the frontend API URL and the Nginx 
 
 Nginx is part of the frontend delivery path. It serves the frontend files (index.html, styles.css  and front app.js ) to the browser and acts as a reverse proxy for backend requests.
 - The frontend docker image copies all frontend files to /usr/share/nginx/html.
-- Nginx listens on port 80 inside the frontend container. Port 80 is mapped to port 5500 of the frontend container.
+- Nginx listens on port 80 inside the frontend container. Port 80 is mapped to port 5500(published port for reaching the application) of the frontend container.
 - When users request the frontend page on port 5500 using the frontend URL(That is, the browser requests /), nginx returns index.html.
   <img width="848" height="289" alt="image" src="https://github.com/user-attachments/assets/eff1d9d4-c099-4707-9e97-cdfb383451bb" />
 - The browser reads the index.html file and discovers references to /styles.css and /app.js. The browser then makes additional requests for these files. Nginx serves the CSS and JavaScript files from the same document root
@@ -69,17 +69,10 @@ Nginx is part of the frontend delivery path. It serves the frontend files (index
 Important:
 1. Nginx does not execute your frontend JavaScript. It serves the files to the browser, and the browser executes the JavaScript.
 2. The try_files fallback is particularly useful for frontend routes. If a user opens a path such as /restaurants, Nginx can return index.html when no corresponding file exists.
-- As a reverse proxy If the user then clicks on restaurants tab or health check tab the request "GET /api/restaurants" or "GET /health" is forwarded to nginx , nginx then uses its' location parameter to know exactly how to route the request to the corresponding backend API. 
-Note: The browser does not directly call the backend, insteads it calls /api/restaurants or /health. Therefore no need to use the backend CORS in this case
+- As a reverse proxy, if the user then clicks on restaurants tab or health check tab the request "GET /api/restaurants" or "GET /health" is forwarded to nginx. Nginx then uses its' location parameter to know exactly how to route the request to the corresponding backend API.
+  <img width="706" height="206" alt="image" src="https://github.com/user-attachments/assets/b2a0e38a-e3b2-4481-abc0-421ac1b0313b" />
 
-
-The configuration should be reviewed to identify:
-
-- The listening port used by Nginx.
-- The document root and default index file, if Nginx serves static frontend assets.
-- The handling of frontend routes and static resources.
-- Any `location` and `proxy_pass` rules used to forward API requests to the backend.
-- The relationship between the container's listening port and the published port used to reach the application.
+Note: The browser does not directly call the backend, insteads it directly  calls the backend API, /api/restaurants or /health. Therefore, there is no need to use the backend CORS in this case
 
 ### Nginx evidence
 
