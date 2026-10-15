@@ -73,7 +73,8 @@ The configuration should be reviewed to identify:
 
 The screenshot below should show the actual configuration used by the running frontend container.
 
-![Actual Nginx configuration](docs/screenshots/04-nginx-configuration.png)
+#### Actual Nginx configuration<img width="1130" height="543" alt="image" src="https://github.com/user-attachments/assets/cd5f7113-e65b-4c76-bc6d-124dd46b0f80" />
+
 
 The browser Network panel should also be used to verify the real request path, HTTP method, status, and response.
 
