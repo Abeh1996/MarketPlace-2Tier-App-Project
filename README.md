@@ -27,7 +27,8 @@ The project also documents real troubleshooting activities involving runner conf
 
 The architecture separates the CI/CD process from the application's runtime request flow.
 
-![MarketPlace architecture diagram](docs/architecture/marketplace-architecture.png)
+![MarketPlace architecture diagram]<img width="988" height="600" alt="image" src="https://github.com/user-attachments/assets/f608bf1f-7650-47dd-9a95-a2036bd60bd0" />
+
 
 ### Component responsibilities
 
