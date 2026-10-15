@@ -59,7 +59,8 @@ The actual API routing path is determined by the frontend API URL and the Nginx 
 
 ## 3. Nginx Configuration and HTTP Traffic Handling
 
-Nginx is part of the frontend delivery path. Its role is defined by the Nginx configuration included in the project.
+Nginx is part of the frontend delivery path. It serves the frontend files(index.html, styles.css  and front app.js ) to the browser and acts as a reverse proxy for backend requests.
+
 
 The configuration should be reviewed to identify:
 
