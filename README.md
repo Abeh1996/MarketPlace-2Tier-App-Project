@@ -104,11 +104,15 @@ GitHub Actions automates the steps configured in the repository's workflow. The 
 
 The following screenshot should show the actual completed GitHub Actions run, including its commit and job results.
 
-![GitHub Actions workflow execution](docs/screenshots/01-github-actions-success.png)
+GitHub Actions workflow execution result
+<img width="1514" height="355" alt="image" src="https://github.com/user-attachments/assets/da8eceb2-ddbb-4fcf-9cdc-1a92911569ba" />
+
 
 ### Published container images
 
 The Docker Hub screenshot should show the actual frontend and backend image repositories and their published tags.
+<img width="1104" height="259" alt="image" src="https://github.com/user-attachments/assets/2b9255c8-1e19-4c09-944a-ce3047a3280f" />
+
 
 ![MarketPlace container images in Docker Hub](docs/screenshots/02-dockerhub-images.png)
 
@@ -116,7 +120,9 @@ The Docker Hub screenshot should show the actual frontend and backend image repo
 
 The runtime screenshot should show the relevant containers, their status, and port mappings.
 
-![Running application containers](docs/screenshots/03-runner-and-containers.png)
+Running application containers
+<img width="1781" height="268" alt="image" src="https://github.com/user-attachments/assets/1e368d25-4d5d-4e48-8bf5-cb9e57bf8e4c" />
+
 
 A successful workflow is an important result, but it does not alone prove that browser requests succeed or that PostgreSQL stores the expected data. Those behaviours are verified independently.
 
