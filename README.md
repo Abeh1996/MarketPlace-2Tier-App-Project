@@ -81,13 +81,8 @@ The screenshot below should show the actual configuration used by the running fr
 #### Actual Nginx configuration<img width="1130" height="543" alt="image" src="https://github.com/user-attachments/assets/cd5f7113-e65b-4c76-bc6d-124dd46b0f80" />
 
 
-The browser Network panel should also be used to verify the real request path, HTTP method, status, and response.
+The browser Network panel shows  the real request path, HTTP method, status, and response.
 <img width="1883" height="647" alt="image" src="https://github.com/user-attachments/assets/2c9733a1-60b4-487e-b482-a2cddf845355" />
-
-
-![Browser request verification](docs/screenshots/06-browser-api-request.png)
-
-This evidence connects the Nginx configuration to observable application behaviour instead of treating the presence of a configuration file as proof that the routing works.
 
 ## 4. CI/CD Pipeline
 
