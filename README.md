@@ -74,13 +74,6 @@ Important:
 
 Note: The browser does not directly call the backend, insteads it directly  calls the backend API, /api/restaurants or /health. Therefore, there is no need to use the backend CORS in this case
 
-### Nginx evidence
-
-The screenshot below should show the actual configuration used by the running frontend container.
-
-#### Actual Nginx configuration<img width="1130" height="543" alt="image" src="https://github.com/user-attachments/assets/cd5f7113-e65b-4c76-bc6d-124dd46b0f80" />
-
-
 The browser Network panel shows  the real request path, HTTP method, status, and response.
 <img width="1883" height="647" alt="image" src="https://github.com/user-attachments/assets/2c9733a1-60b4-487e-b482-a2cddf845355" />
 
