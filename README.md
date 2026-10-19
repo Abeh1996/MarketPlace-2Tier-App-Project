@@ -286,6 +286,9 @@ Root Cause Analysis
 Checked the enviroment file and found that no password was supplied.
 <img width="1640" height="166" alt="image" src="https://github.com/user-attachments/assets/a8d999d0-ff19-4e5c-aecb-71172d113586" />
 
+Solution:
+Added the postgres correct to the enviroment variables and restarted the container. The migration was then performed successfully.
+<img width="1046" height="218" alt="image" src="https://github.com/user-attachments/assets/69952279-5853-4396-b535-3a725a060536" />
 
 
 1. Symptom and error evidence.
