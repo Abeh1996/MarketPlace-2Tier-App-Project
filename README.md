@@ -257,7 +257,16 @@ After the implementing the CI/CD pipeline , the frontend could could be successf
 <img width="1909" height="508" alt="image" src="https://github.com/user-attachments/assets/cca52c67-3434-4b7e-84ce-efd3b1f8cb2d" />
 
 
-communication between between the DB,FE and BE container was check
+- Verified the communication between the DB,FE and BE containers.
+  <img width="1220" height="141" alt="image" src="https://github.com/user-attachments/assets/8b6a3a3d-8998-45f8-9eca-738bf66f41ea" />
+- Check whether all containers are connected to the same bridge
+  <img width="1079" height="398" alt="image" src="https://github.com/user-attachments/assets/29988b19-35d8-4ada-a526-8e02c0cad999" />
+- Checked whether the docker DNS can successfully resolve container names.
+  <img width="1040" height="110" alt="image" src="https://github.com/user-attachments/assets/faed505b-29bc-40b3-8df0-9c0acc293253" />
+
+
+- 
+
 
 Each incident is documented using the following method:
 
