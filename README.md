@@ -256,16 +256,23 @@ The project includes troubleshooting across the CI/CD runner, runtime configurat
 After the implementing the CI/CD pipeline , the frontend could could be successfully loaded to the browser . But when a user clicked tried to load some restaurants a server site error was generated as shown below.
 <img width="1909" height="508" alt="image" src="https://github.com/user-attachments/assets/cca52c67-3434-4b7e-84ce-efd3b1f8cb2d" />
 
-
+Root cause Analysis
 - Verified the communication between the DB,FE and BE containers.
   <img width="1220" height="141" alt="image" src="https://github.com/user-attachments/assets/8b6a3a3d-8998-45f8-9eca-738bf66f41ea" />
 - Check whether all containers are connected to the same bridge
   <img width="1079" height="398" alt="image" src="https://github.com/user-attachments/assets/29988b19-35d8-4ada-a526-8e02c0cad999" />
 - Checked whether the docker DNS can successfully resolve container names.
   <img width="1040" height="110" alt="image" src="https://github.com/user-attachments/assets/faed505b-29bc-40b3-8df0-9c0acc293253" />
+- Checked whether containers are still connected to the default bridge.
+  <img width="1648" height="299" alt="image" src="https://github.com/user-attachments/assets/4cbfeda5-c63f-410f-91c7-a2c7253b6e38" />
+- Checked the codespaces host's firewall forwarding rules
+  <img width="974" height="251" alt="image" src="https://github.com/user-attachments/assets/f002156e-5534-42d5-8f03-b2974604359c" />
 
+Root cause: 
+Note: The docker bridge is created and managed by docker on the container host. Therefore host firewall rules must allow traffic to enter or leave the bridge.
+  Firewall forwarding rule was not configured for the containers' bridge. As a results all packages to or from the container bridge were dropped.
+Solution
 
-- 
 
 
 Each incident is documented using the following method:
