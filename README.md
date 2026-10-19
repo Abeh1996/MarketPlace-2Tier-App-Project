@@ -130,6 +130,97 @@ The backend requires runtime configuration for its listening port, database conn
 
 The repository's `docker-compose.yml` is the source of truth for the service definitions, networks, volumes, port mappings, and environment configuration.
 
+## 5. Containerization, Networking and Runtime Configuration
+
+MarketPlace runs as a multi-container application managed by Docker Compose. Nginx serves the frontend and reverse-proxies `/api/` and `/health` requests to the Node.js/Express backend. The backend uses Prisma to access PostgreSQL.
+
+### 5.1 Container Architecture
+
+The application separates the frontend web server, backend API, and database into individual containers.
+
+| Service | Responsibility | Port |
+|---|---|---|
+| Frontend / Nginx | Serves HTML, CSS and JavaScript and forwards configured API requests | `5500:80` |
+| Backend API | Processes requests using Node.js and Express | `4000:4000`, if published in Compose |
+| PostgreSQL | Stores application data | Internal port `5432`; no published host port if configured that way |
+
+**Configuration file:** <img width="826" height="652" alt="image" src="https://github.com/user-attachments/assets/706186f2-67b0-453e-bf86-b89fd5043f39" />
+
+### 5.2 HTTP Routing and Docker Networking
+
+The browser accesses the frontend through the Codespaces-forwarded port `5500`, which maps to port `80` inside the Nginx container.
+
+Nginx serves the frontend files from `/usr/share/nginx/html`. Requests matching `/api/` and `/health` are forwarded to the backend at `mapp-BE-container:4000`, according to the configured proxy rules.
+
+The frontend and backend must be connected to a Docker network that permits the required communication. The backend must also be able to reach PostgreSQL through the internal Docker network.
+
+### 5.3 Runtime Environment Variables
+
+The backend uses runtime settings such as its listening port, database connection URL, and any other variables required by the application.
+
+Configuration values should be injected at runtime rather than hard-coded into the Docker image. The local `.env` file must remain excluded from version control, and actual credentials must never be published in the README or screenshots.
+
+The database URL must use a hostname reachable from the backend container. When the database is a separate container, `localhost` refers to the backend container itself, not the database container.
+
+### 5.4 Database Storage and Persistence
+
+PostgreSQL stores the application's data. The Compose configuration determines how database data is stored and whether it survives container recreation.
+
+**Configuration file:** <img width="720" height="45" alt="image" src="https://github.com/user-attachments/assets/b588b517-8568-46e9-8be0-0668719e419a" />
+
+## 6. End-to-End Application Verification
+
+The end-to-end test verifies that a request submitted through the browser reaches the backend and, where supported, stores the expected data in PostgreSQL.
+
+### 6.1 Frontend Verification
+
+Open the deployed frontend through the configured Codespaces-forwarded endpoint and confirm that the page and its static assets load.
+
+![MarketPlace frontend running in the browser]<img width="905" height="808" alt="image" src="https://github.com/user-attachments/assets/b427c224-2374-4266-b306-67ba860c1008" />
+
+### 6.2 Browser-to-API Verification
+
+Submit a valid test record using the application's interface. Inspect the resulting request in the browser Developer Tools under **Network**.
+
+**📸 INSERT SCREENSHOT 7 HERE — Browser API request**
+
+![Browser API request and response](docs/screenshots/06-browser-api-request.png)
+
+*Screenshot requirements:* Show the actual request URL or path, HTTP method, response status, and relevant response data. Remove cookies, tokens, and sensitive values before capturing the screenshot.
+
+### 6.3 Database Write Verification
+
+Query PostgreSQL and confirm that the record submitted through the browser exists with the expected value or identifier.
+
+**📸 INSERT SCREENSHOT 8 HERE — Database record verification**
+
+![Database write verification](docs/screenshots/08-database-write-verified.png)
+
+*Screenshot requirements:* Show the query and its result, using a harmless test record. Where possible, use a unique test value that can be matched to the browser submission.
+
+Only mark the end-to-end test as passed after you have verified the browser submission, successful API operation, and matching PostgreSQL record. If the test is not complete, leave the screenshot out until you have genuine evidence.
+
+## 7. Troubleshooting and Root-Cause Analysis
+
+The project includes troubleshooting involving the self-hosted runner, runtime environment configuration, Docker networking, and PostgreSQL authentication.
+
+Each case should document the original symptom, diagnostic steps, confirmed root cause, corrective action, and successful retest.
+
+The full incident records are maintained in [`docs/troubleshooting.md`](docs/troubleshooting.md).
+
+**📸 INSERT TROUBLESHOOTING SCREENSHOTS IN `docs/troubleshooting.md`, NOT ALL HERE.**
+
+For each real issue, place the original error screenshot immediately after the **Observed error** subsection, and place the successful retest screenshot immediately after the **Verification after fix** subsection. Use the following naming scheme:
+
+- `07-runner-configuration-error.png`
+- `09-runtime-environment-error.png`
+- `10-docker-network-error.png`
+- `11-docker-network-success.png`
+- `12-database-authentication-error.png`
+- `13-database-authentication-success.png`
+
+Only include files for errors you actually encountered and fixes you actually verified.
+
 ## 6. End-to-End Application Verification
 
 Application verification must cover the path from the browser to the backend and, for a write operation, to PostgreSQL.
