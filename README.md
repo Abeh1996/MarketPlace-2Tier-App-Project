@@ -278,6 +278,16 @@ The were able to communicate.
 <img width="1063" height="254" alt="image" src="https://github.com/user-attachments/assets/f1e1270b-e7db-416c-8e0e-c72de88eafb7" />
 Each incident is documented using the following method:
 
+Problem 2: After resolving the following starting the ORM(Prisma) client in the BE and DB Schema migration performed the following errors were observed.
+<img width="1379" height="423" alt="image" src="https://github.com/user-attachments/assets/3bbceabe-9a46-48bf-9bf2-91518ac44e34" />
+Note: For migration to be performed the BE must authenticate with the DB.
+
+Root Cause Analysis
+Checked the enviroment file and found that no password was supplied.
+<img width="1640" height="166" alt="image" src="https://github.com/user-attachments/assets/a8d999d0-ff19-4e5c-aecb-71172d113586" />
+
+
+
 1. Symptom and error evidence.
 2. Investigation and diagnostic checks.
 3. Confirmed root cause.
