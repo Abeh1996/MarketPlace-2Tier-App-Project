@@ -253,6 +253,12 @@ The record should be matched using a unique, harmless test value. Where the appl
 
 The project includes troubleshooting across the CI/CD runner, runtime configuration, Docker networking, and database authentication layers.
 
+After the implementing the CI/CD pipeline , the frontend could could be successfully loaded to the browser . But when a user clicked tried to load some restaurants a server site error was generated as shown below.
+<img width="1909" height="508" alt="image" src="https://github.com/user-attachments/assets/cca52c67-3434-4b7e-84ce-efd3b1f8cb2d" />
+
+
+communication between between the DB,FE and BE container was check
+
 Each incident is documented using the following method:
 
 1. Symptom and error evidence.
