@@ -288,6 +288,26 @@ Checked the enviroment file and found that no password was supplied.
 Added the Postgres correct password to the enviroment variable file and restarted the container. The migration was then performed successfully.
 <img width="1046" height="218" alt="image" src="https://github.com/user-attachments/assets/69952279-5853-4396-b535-3a725a060536" />
 
+### Problem 3: 
+<img width="926" height="271" alt="image" src="https://github.com/user-attachments/assets/2149c51a-a855-493f-86e1-9a61feb3d195" />
+
+#### Root cause analysis
+- Checked the logs and found the following message below.
+  <img width="918" height="185" alt="image" src="https://github.com/user-attachments/assets/cb373a24-9ee4-4825-a794-4e5de37b4d0e" />
+- Verify the disk space usage by docker's resources.
+  <img width="800" height="125" alt="image" src="https://github.com/user-attachments/assets/924fe51a-7a01-4267-a5f4-a3bdc816a856" />
+- Verify the codespaces host availlable disk space and found that all disk space has been used up.
+  <img width="913" height="167" alt="image" src="https://github.com/user-attachments/assets/5652aecd-a2d4-4a34-b8ed-368450a71250" />
+#### Root cause
+- The host disk space was already exhausted.
+#### Solution
+
+
+- 
+
+
+
+
 ### Issues investigated
 
 | Issue | Investigation focus | Verification evidence |
