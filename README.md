@@ -250,69 +250,56 @@ The record should be matched using a unique, harmless test value. Where the appl
 
 The project includes troubleshooting across the CI/CD runner, runtime configuration, Docker networking, and database authentication layers.
 
-After the implementing the CI/CD pipeline , the frontend could could be successfully loaded to the browser . But when a user clicked tried to load some restaurants a server site error was generated as shown below.
+### Problem 1: 
+After the implementing the CI/CD pipeline, the frontend code could be successfully loadeded to the browser. But when a user clicked tries to query restaurants a server side error was generated as shown below.
 <img width="1909" height="508" alt="image" src="https://github.com/user-attachments/assets/cca52c67-3434-4b7e-84ce-efd3b1f8cb2d" />
 
-Root cause Analysis
-- Verified the communication between the DB,FE and BE containers.
+#### Root cause Analysis:
+- Verified the communication between the database,frontend and backend containers.
   <img width="1220" height="141" alt="image" src="https://github.com/user-attachments/assets/8b6a3a3d-8998-45f8-9eca-738bf66f41ea" />
-- Check whether all containers are connected to the same bridge
+- Verified whether all containers are connected to the same bridge.
   <img width="1079" height="398" alt="image" src="https://github.com/user-attachments/assets/29988b19-35d8-4ada-a526-8e02c0cad999" />
 - Checked whether the docker DNS can successfully resolve container names.
   <img width="1040" height="110" alt="image" src="https://github.com/user-attachments/assets/faed505b-29bc-40b3-8df0-9c0acc293253" />
 - Checked whether containers are still connected to the default bridge.
   <img width="1648" height="299" alt="image" src="https://github.com/user-attachments/assets/4cbfeda5-c63f-410f-91c7-a2c7253b6e38" />
-- Checked the codespaces host's firewall forwarding rules
+- Checked the codespaces host's firewall forwarding rules and found that there was no rule that allows traffic to move in and out of docker bridge.
   <img width="974" height="251" alt="image" src="https://github.com/user-attachments/assets/f002156e-5534-42d5-8f03-b2974604359c" />
 
-Root cause: 
-Note: The docker bridge is created and managed by docker on the container host. Therefore host firewall rules must allow traffic to enter or leave the bridge.
-  Firewall forwarding rule was not configured for the containers' bridge. As a results all packages to or from the container bridge were dropped.
-Solution
-Allowed traffic to traffic to enter or leave the container bridge on the host's firewall.
+#### Root cause: 
+The docker bridge is created and managed by docker on the container host. Therefore host firewall rules must allow traffic to enter or leave the bridge.
+Firewall forwarding rule was not configured for the containers' bridge. As a results all packages to or from the container bridge were dropped.
+#### Solution: 
+Configured the forwarding rule on the container's host firewall to allow traffic to traffic to enter or leave the container bridge.
 <img width="1385" height="286" alt="image" src="https://github.com/user-attachments/assets/0ed6fc82-ba77-4ebf-9096-29a007ae392b" />
-The were able to communicate.
+Containers could communicate after the firewall rule was added.
 <img width="1063" height="254" alt="image" src="https://github.com/user-attachments/assets/f1e1270b-e7db-416c-8e0e-c72de88eafb7" />
-Each incident is documented using the following method:
 
-Problem 2: After resolving the following starting the ORM(Prisma) client in the BE and DB Schema migration performed the following errors were observed.
+### Problem 2: 
+After starting the ORM(Prisma) client in the backend comntainer and DB Schema migration performed the following error were observed.
 <img width="1379" height="423" alt="image" src="https://github.com/user-attachments/assets/3bbceabe-9a46-48bf-9bf2-91518ac44e34" />
-Note: For migration to be performed the BE must authenticate with the DB.
+For migration to be performed the backend must have the correct db credentials.
 
-Root Cause Analysis
+#### Root Cause Analysis:
 Checked the enviroment file and found that no password was supplied.
 <img width="1640" height="166" alt="image" src="https://github.com/user-attachments/assets/a8d999d0-ff19-4e5c-aecb-71172d113586" />
 
-Solution:
-Added the postgres correct to the enviroment variables and restarted the container. The migration was then performed successfully.
+#### Solution:
+Added the Postgres correct password to the enviroment variable file and restarted the container. The migration was then performed successfully.
 <img width="1046" height="218" alt="image" src="https://github.com/user-attachments/assets/69952279-5853-4396-b535-3a725a060536" />
-
-
-1. Symptom and error evidence.
-2. Investigation and diagnostic checks.
-3. Confirmed root cause.
-4. Resolution.
-5. Verification after the change.
-
-The screenshots in the detailed troubleshooting report should be genuine captures from the project. Error screenshots should be paired with evidence showing the corresponding fix or successful retest.
 
 ### Issues investigated
 
 | Issue | Investigation focus | Verification evidence |
 |---|---|---|
-| Self-hosted runner configuration | Workflow runner requirement, runner availability, and label matching. | A successful workflow run on the intended runner. |
-| Missing runtime environment configuration | Required environment variables and how they are supplied to the services. | Successful configuration check or application startup, with secrets redacted. |
 | Docker network connectivity | Container status, service-name resolution, network reachability, and host firewall rules. | A successful connectivity check or database operation after the fix. |
 | PostgreSQL authentication | Whether the connection reaches PostgreSQL and whether the runtime credentials are valid. | A successful authenticated connection or query after correcting the configuration. |
-
-The detailed incident records, including the original errors, root causes, changes, and retests, are maintained in [`docs/troubleshooting.md`](docs/troubleshooting.md).
 
 ## 8. Security Considerations
 
 The project follows these security principles:
 
 - Do not commit `.env` files containing credentials.
-- Do not include passwords, access tokens, or full credential-bearing database URLs in screenshots or documentation.
 - Supply runtime configuration through the intended environment or secret-management mechanism.
 - Restrict exposed ports to the access required by the lab.
 - Treat a self-hosted runner as an execution environment that requires appropriate access controls.
