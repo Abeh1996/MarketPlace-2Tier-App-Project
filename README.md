@@ -114,8 +114,7 @@ Container listening ports:
 
 A successful workflow is an important result, but it does not alone prove that browser requests succeed or that PostgreSQL stores the expected data. Those behaviours are verified independently.
 
-## 5. Containerization and Runtime Configuration
-
+## 5. Containerization, Networking and Runtime Configuration
 Docker Compose defines the application's frontend, backend, and PostgreSQL services.
 
 The backend requires runtime configuration for its listening port, database connection, and any other settings used by the application. These values must be supplied through the configured runtime environment rather than hard-coded into the Docker image.
@@ -129,8 +128,6 @@ The backend requires runtime configuration for its listening port, database conn
 - **Database storage:** the Compose configuration should define the actual storage mechanism used for PostgreSQL and whether data survives container recreation.
 
 The repository's `docker-compose.yml` is the source of truth for the service definitions, networks, volumes, port mappings, and environment configuration.
-
-## 5. Containerization, Networking and Runtime Configuration
 
 MarketPlace runs as a multi-container application managed by Docker Compose. Nginx serves the frontend and reverse-proxies `/api/` and `/health` requests to the Node.js/Express backend. The backend uses Prisma to access PostgreSQL.
 
