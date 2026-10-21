@@ -195,58 +195,9 @@ Open the deployed frontend through the configured Codespaces-forwarded endpoint 
 
 ## 7. Troubleshooting and Root-Cause Analysis
 
-The project includes troubleshooting involving the self-hosted runner, runtime environment configuration, Docker networking, and PostgreSQL authentication.
-
-Each case should document the original symptom, diagnostic steps, confirmed root cause, corrective action, and successful retest.
-
-The full incident records are maintained in [`docs/troubleshooting.md`](docs/troubleshooting.md).
-
-**📸 INSERT TROUBLESHOOTING SCREENSHOTS IN `docs/troubleshooting.md`, NOT ALL HERE.**
-
-For each real issue, place the original error screenshot immediately after the **Observed error** subsection, and place the successful retest screenshot immediately after the **Verification after fix** subsection. Use the following naming scheme:
-
-- `07-runner-configuration-error.png`
-- `09-runtime-environment-error.png`
-- `10-docker-network-error.png`
-- `11-docker-network-success.png`
-- `12-database-authentication-error.png`
-- `13-database-authentication-success.png`
-
-Only include files for errors you actually encountered and fixes you actually verified.
-
-## 6. End-to-End Application Verification
-
-Application verification must cover the path from the browser to the backend and, for a write operation, to PostgreSQL.
-
-### Frontend verification
-
-Open the deployed frontend in a browser and confirm that the expected page and application functionality are available.
-
-![MarketPlace frontend running in the browser](docs/screenshots/05-frontend-browser.png)
-
-### Browser-to-API verification
-
-Submit a valid test record through an implemented application form. Inspect the resulting request in the browser's Developer Tools under **Network**.
-
-Record the actual request method, endpoint, HTTP status, and response. Remove cookies, tokens, credentials, and private data before capturing the screenshot.
-
-![Browser API request and response](docs/screenshots/06-browser-api-request.png)
-
-### Database persistence verification
-
-For a complete write-path test, query the relevant PostgreSQL table and verify that the submitted test record exists with the expected value or identifier.
-
-![Database query confirming the submitted record](docs/screenshots/08-database-write-verified.png)
-
-The record should be matched using a unique, harmless test value. Where the application supports reading the record again, retrieve it through the application or API to strengthen the verification.
-
-**Acceptance criterion:** mark this end-to-end test as passed only after the browser submission, successful API operation, and matching PostgreSQL record have all been verified. If the test has not yet been completed, treat it as outstanding rather than claiming success.
-
-## 7. Troubleshooting and Root-Cause Analysis
-
 The project includes troubleshooting across the CI/CD runner, runtime configuration, Docker networking, and database authentication layers.
 
-### Problem 1: 
+### Problem 1: Docker network connectivity
 After the implementing the CI/CD pipeline, the frontend code could be successfully loadeded to the browser. But when a user clicked tries to query restaurants a server side error was generated as shown below.
 <img width="1909" height="508" alt="image" src="https://github.com/user-attachments/assets/cca52c67-3434-4b7e-84ce-efd3b1f8cb2d" />
 
@@ -271,7 +222,7 @@ Configured the forwarding rule on the container's host firewall to allow traffic
 Containers could communicate after the firewall rule was added.
 <img width="1063" height="254" alt="image" src="https://github.com/user-attachments/assets/f1e1270b-e7db-416c-8e0e-c72de88eafb7" />
 
-### Problem 2: 
+### Problem 2:  PostgreSQL authentication Issue
 After starting the ORM(Prisma) client in the backend comntainer and DB Schema migration performed the following error were observed.
 <img width="1379" height="423" alt="image" src="https://github.com/user-attachments/assets/3bbceabe-9a46-48bf-9bf2-91518ac44e34" />
 For migration to be performed the backend must have the correct db credentials.
@@ -314,15 +265,8 @@ PostgreSQL failed to start because the Codespace's /workspaces filesystem had no
   a. npm cache clean --force to clear the npm cache and
   b. docker builder prune -a -f to clear unused docker build cache.
   c. system prune -af to forcefully removed unused docker resources to free space
-2. The container was then successfully restarted. 
-
-### Issues investigated
-
-| Issue | Investigation focus | Verification evidence |
-|---|---|---|
-| Docker network connectivity | Container status, service-name resolution, network reachability, and host firewall rules. | A successful connectivity check or database operation after the fix. |
-| PostgreSQL authentication | Whether the connection reaches PostgreSQL and whether the runtime credentials are valid. | A successful authenticated connection or query after correcting the configuration. |
-
+2. The container was then successfully restarted.
+  
 ## 8. Security Considerations
 
 The project follows these security principles:
