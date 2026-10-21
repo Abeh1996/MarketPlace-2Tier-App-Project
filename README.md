@@ -177,13 +177,13 @@ Open the deployed frontend through the configured Codespaces-forwarded endpoint 
 
 ### 6.2 Browser-to-API Verification
 
-Submit a valid test record using the application's interface. Inspect the resulting request in the browser Developer Tools under **Network**.
-
-**📸 INSERT SCREENSHOT 7 HERE — Browser API request**
-
-![Browser API request and response](docs/screenshots/06-browser-api-request.png)
-
-*Screenshot requirements:* Show the actual request URL or path, HTTP method, response status, and relevant response data. Remove cookies, tokens, and sensitive values before capturing the screenshot.
+**Browser API request**
+- Loading the list of restaurants.
+  <img width="1898" height="648" alt="image" src="https://github.com/user-attachments/assets/1afd80bd-3ca4-4d89-a27b-6454bd8392da" />
+- Viewing a restaurant menu
+  <img width="1892" height="398" alt="image" src="https://github.com/user-attachments/assets/6ce78494-0362-4c38-b6f8-4a524a3acd0c" />
+- Submitting an order to a chosen restaurant
+  <img width="1877" height="815" alt="image" src="https://github.com/user-attachments/assets/23d051e2-d0a9-432c-a9e0-a34b95a91244" />
 
 ### 6.3 Database Write Verification
 
