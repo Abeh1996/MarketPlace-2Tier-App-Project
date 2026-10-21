@@ -187,15 +187,11 @@ Open the deployed frontend through the configured Codespaces-forwarded endpoint 
 
 ### 6.3 Database Write Verification
 
-Query PostgreSQL and confirm that the record submitted through the browser exists with the expected value or identifier.
-
-**📸 INSERT SCREENSHOT 8 HERE — Database record verification**
-
-![Database write verification](docs/screenshots/08-database-write-verified.png)
-
-*Screenshot requirements:* Show the query and its result, using a harmless test record. Where possible, use a unique test value that can be matched to the browser submission.
-
-Only mark the end-to-end test as passed after you have verified the browser submission, successful API operation, and matching PostgreSQL record. If the test is not complete, leave the screenshot out until you have genuine evidence.
+ **Database record verification**.
+ - Login db from the db container as follows
+ <img width="1248" height="565" alt="image" src="https://github.com/user-attachments/assets/fb9c64ed-a8d1-4120-be5e-ddb1e80b7e83" />
+ - Verify the newly submitted order.
+   <img width="894" height="422" alt="image" src="https://github.com/user-attachments/assets/58355181-217f-4888-aa52-0d88f84a00ed" />
 
 ## 7. Troubleshooting and Root-Cause Analysis
 
