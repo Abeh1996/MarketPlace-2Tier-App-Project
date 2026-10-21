@@ -288,7 +288,8 @@ Checked the enviroment file and found that no password was supplied.
 Added the Postgres correct password to the enviroment variable file and restarted the container. The migration was then performed successfully.
 <img width="1046" height="218" alt="image" src="https://github.com/user-attachments/assets/69952279-5853-4396-b535-3a725a060536" />
 
-### Problem 3: 
+### Problem 3: PostgreSQL Startup Failure Due to Disk Exhaustion
+PostgreSQL failed to start because the Codespace's /workspaces filesystem had no available space. The database logs reported that PostgreSQL could not write postmaster.pid, preventing the database process from starting.
 <img width="926" height="271" alt="image" src="https://github.com/user-attachments/assets/2149c51a-a855-493f-86e1-9a61feb3d195" />
 
 #### Root cause analysis
@@ -296,17 +297,28 @@ Added the Postgres correct password to the enviroment variable file and restarte
   <img width="918" height="185" alt="image" src="https://github.com/user-attachments/assets/cb373a24-9ee4-4825-a794-4e5de37b4d0e" />
 - Verify the disk space usage by docker's resources.
   <img width="800" height="125" alt="image" src="https://github.com/user-attachments/assets/924fe51a-7a01-4267-a5f4-a3bdc816a856" />
-- Verify the codespaces host availlable disk space and found that all disk space has been used up.
+  Note:However, the Docker figures alone do not explain the full 31 GB of workspace usage
+- Verify the codespaces host availlable disk space and found that all disk space has been used up. 
   <img width="913" height="167" alt="image" src="https://github.com/user-attachments/assets/5652aecd-a2d4-4a34-b8ed-368450a71250" />
+  Disk inspection using df -h showed the workspace filesystem at 100% usage, with approximately 31 GB used out of 32 GB.
+- Investigated the disk space consumption
+  <img width="543" height="58" alt="image" src="https://github.com/user-attachments/assets/05a8b618-eb7c-4127-b13f-49f5a5202b65" />
+  <img width="1203" height="279" alt="image" src="https://github.com/user-attachments/assets/18d12b99-cb0b-4875-99d5-ff712b7bcd39" />
+  Compared filesystem utilization and workspace directory sizes to identify where storage was being consumed.
 #### Root cause
-- The host disk space was already exhausted.
+- The failure was due to insufficient disk space.The Codespace workspace filesystem ran out of available disk space, preventing PostgreSQL from creating its required lock file.
 #### Solution
+1. Performed disk-space cleanup
 
+- Removed stopped Docker containers using docker container prune -f.
 
-- 
+- Removed dangling Docker images using docker image prune -f.
 
-
-
+- Cleared the relevant cache to reclaim additional disk space:
+  a. npm cache clean --force to clear the npm cache and
+  b. docker builder prune -a -f to clear unused docker build cache.
+  c. system prune -af to forcefully removed unused docker resources to free space
+2. The container was then successfully restarted. 
 
 ### Issues investigated
 
