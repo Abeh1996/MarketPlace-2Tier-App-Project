@@ -246,7 +246,8 @@ PostgreSQL failed to start because the Codespace's /workspaces filesystem had no
   <img width="800" height="125" alt="image" src="https://github.com/user-attachments/assets/924fe51a-7a01-4267-a5f4-a3bdc816a856" />
   Note:However, the Docker figures alone do not explain the full 31 GB of workspace usage
 - Verify the codespaces host availlable disk space and found that all disk space has been used up. 
-  <img width="913" height="167" alt="image" src="https://github.com/user-attachments/assets/5652aecd-a2d4-4a34-b8ed-368450a71250" />
+  <img width="1132" height="209" alt="image" src="https://github.com/user-attachments/assets/cbdd3541-54c0-49f8-932d-2cda7362df37" />
+
   Disk inspection using df -h showed the workspace filesystem at 100% usage, with approximately 31 GB used out of 32 GB.
 - Investigated the disk space consumption
   <img width="543" height="58" alt="image" src="https://github.com/user-attachments/assets/05a8b618-eb7c-4127-b13f-49f5a5202b65" />
