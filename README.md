@@ -237,7 +237,8 @@ Added the Postgres correct password to the enviroment variable file and restarte
 
 ### Problem 3: PostgreSQL Startup Failure Due to Disk Exhaustion
 PostgreSQL failed to start because the Codespace's /workspaces filesystem had no available space. The database logs reported that PostgreSQL could not write postmaster.pid, preventing the database process from starting.
-<img width="926" height="271" alt="image" src="https://github.com/user-attachments/assets/2149c51a-a855-493f-86e1-9a61feb3d195" />
+<img width="1069" height="331" alt="image" src="https://github.com/user-attachments/assets/b27c01f7-f8ea-4dab-916f-afd7f9e9fd27" />
+
 
 #### Root cause analysis
 - Checked the logs and found the following message below.
