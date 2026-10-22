@@ -189,7 +189,8 @@ Open the deployed frontend through the configured Codespaces-forwarded endpoint 
 
  **Database record verification**.
  - Login db from the db container as follows
- <img width="1248" height="565" alt="image" src="https://github.com/user-attachments/assets/fb9c64ed-a8d1-4120-be5e-ddb1e80b7e83" />
+<img width="1450" height="696" alt="image" src="https://github.com/user-attachments/assets/acf5a30b-b980-463a-bcdf-e0311f9e03f6" />
+
  - Verify the newly submitted order.
    <img width="894" height="422" alt="image" src="https://github.com/user-attachments/assets/58355181-217f-4888-aa52-0d88f84a00ed" />
 
