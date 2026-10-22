@@ -63,14 +63,14 @@ Nginx is part of the frontend delivery path. It serves the frontend files (index
 - The frontend docker image copies all frontend files to /usr/share/nginx/html.
 - Nginx listens on port 80 inside the frontend container. Port 80 is mapped to port 5500(published port for reaching the application) of the frontend container.
 - When users request the frontend page on port 5500 using the frontend URL(That is, the browser requests /), nginx returns index.html.
-<img width="848" height="289" alt="image" src="https://github.com/user-attachments/assets/eff1d9d4-c099-4707-9e97-cdfb383451bb" />
+  <img width="848" height="289" alt="image" src="https://github.com/user-attachments/assets/eff1d9d4-c099-4707-9e97-cdfb383451bb" />
 - The browser reads the index.html file and discovers references to /styles.css and /app.js. The browser then makes additional requests for these files. Nginx serves the CSS and JavaScript files from the same document root
 
 Important:
 1. Nginx does not execute your frontend JavaScript. It serves the files to the browser, and the browser executes the JavaScript.
 2. The try_files fallback is particularly useful for frontend routes. If a user opens a path such as /restaurants, Nginx can return index.html when no corresponding file exists.
 - As a reverse proxy, if the user then clicks on restaurants tab or health check tab the request "GET /api/restaurants" or "GET /health" is forwarded to nginx. Nginx then uses its' location parameter to know exactly how to route the request to the corresponding backend API.
-<img width="706" height="206" alt="image" src="https://github.com/user-attachments/assets/b2a0e38a-e3b2-4481-abc0-421ac1b0313b" />
+  <img width="706" height="206" alt="image" src="https://github.com/user-attachments/assets/b2a0e38a-e3b2-4481-abc0-421ac1b0313b" />
 
 Note: The browser does not directly call the backend, insteads it directly  calls the backend API, /api/restaurants or /health. Therefore, there is no need to use the backend CORS in this case
 
@@ -179,19 +179,19 @@ Open the deployed frontend through the configured Codespaces-forwarded endpoint 
 
 **Browser API request**
 - Loading the list of restaurants.
-<img width="1898" height="648" alt="image" src="https://github.com/user-attachments/assets/1afd80bd-3ca4-4d89-a27b-6454bd8392da" />
+  <img width="1898" height="648" alt="image" src="https://github.com/user-attachments/assets/1afd80bd-3ca4-4d89-a27b-6454bd8392da" />
 - Viewing a restaurant menu
-<img width="1892" height="398" alt="image" src="https://github.com/user-attachments/assets/6ce78494-0362-4c38-b6f8-4a524a3acd0c" />
+  <img width="1892" height="398" alt="image" src="https://github.com/user-attachments/assets/6ce78494-0362-4c38-b6f8-4a524a3acd0c" />
 - Submitting an order to a chosen restaurant
-<img width="1877" height="815" alt="image" src="https://github.com/user-attachments/assets/23d051e2-d0a9-432c-a9e0-a34b95a91244" />
+  <img width="1877" height="815" alt="image" src="https://github.com/user-attachments/assets/23d051e2-d0a9-432c-a9e0-a34b95a91244" />
 
 ### 6.3 Database Write Verification
 
-**Database record verification**.
-- Login db from the db container as follows
-<img width="1248" height="565" alt="image" src="https://github.com/user-attachments/assets/fb9c64ed-a8d1-4120-be5e-ddb1e80b7e83" />
-- Verify the newly submitted order.
-<img width="894" height="422" alt="image" src="https://github.com/user-attachments/assets/58355181-217f-4888-aa52-0d88f84a00ed" />
+ **Database record verification**.
+ - Login db from the db container as follows
+ <img width="1248" height="565" alt="image" src="https://github.com/user-attachments/assets/fb9c64ed-a8d1-4120-be5e-ddb1e80b7e83" />
+ - Verify the newly submitted order.
+   <img width="894" height="422" alt="image" src="https://github.com/user-attachments/assets/58355181-217f-4888-aa52-0d88f84a00ed" />
 
 ## 7. Troubleshooting and Root-Cause Analysis
 
@@ -203,15 +203,15 @@ After the implementing the CI/CD pipeline, the frontend code could be successful
 
 #### Root cause Analysis:
 - Verified the communication between the database,frontend and backend containers.
-<img width="1220" height="141" alt="image" src="https://github.com/user-attachments/assets/8b6a3a3d-8998-45f8-9eca-738bf66f41ea" />
+  <img width="1220" height="141" alt="image" src="https://github.com/user-attachments/assets/8b6a3a3d-8998-45f8-9eca-738bf66f41ea" />
 - Verified whether all containers are connected to the same bridge.
-<img width="1079" height="398" alt="image" src="https://github.com/user-attachments/assets/29988b19-35d8-4ada-a526-8e02c0cad999" />
+  <img width="1079" height="398" alt="image" src="https://github.com/user-attachments/assets/29988b19-35d8-4ada-a526-8e02c0cad999" />
 - Checked whether the docker DNS can successfully resolve container names.
-<img width="1040" height="110" alt="image" src="https://github.com/user-attachments/assets/faed505b-29bc-40b3-8df0-9c0acc293253" />
+  <img width="1040" height="110" alt="image" src="https://github.com/user-attachments/assets/faed505b-29bc-40b3-8df0-9c0acc293253" />
 - Checked whether containers are still connected to the default bridge.
-<img width="1648" height="299" alt="image" src="https://github.com/user-attachments/assets/4cbfeda5-c63f-410f-91c7-a2c7253b6e38" />
+  <img width="1648" height="299" alt="image" src="https://github.com/user-attachments/assets/4cbfeda5-c63f-410f-91c7-a2c7253b6e38" />
 - Checked the codespaces host's firewall forwarding rules and found that there was no rule that allows traffic to move in and out of docker bridge.
-<img width="974" height="251" alt="image" src="https://github.com/user-attachments/assets/f002156e-5534-42d5-8f03-b2974604359c" />
+  <img width="974" height="251" alt="image" src="https://github.com/user-attachments/assets/f002156e-5534-42d5-8f03-b2974604359c" />
 
 #### Root cause: 
 The docker bridge is created and managed by docker on the container host. Therefore host firewall rules must allow traffic to enter or leave the bridge.
@@ -241,19 +241,18 @@ PostgreSQL failed to start because the Codespace's /workspaces filesystem had no
 
 #### Root cause analysis
 - Checked the logs and found the following message below.
-<img width="918" height="185" alt="image" src="https://github.com/user-attachments/assets/cb373a24-9ee4-4825-a794-4e5de37b4d0e" />
+  <img width="918" height="185" alt="image" src="https://github.com/user-attachments/assets/cb373a24-9ee4-4825-a794-4e5de37b4d0e" />
 - Verify the disk space usage by docker's resources.
-<img width="800" height="125" alt="image" src="https://github.com/user-attachments/assets/924fe51a-7a01-4267-a5f4-a3bdc816a856" />
-Note:However, the Docker figures alone do not explain the full 31 GB of workspace usage
+  <img width="800" height="125" alt="image" src="https://github.com/user-attachments/assets/924fe51a-7a01-4267-a5f4-a3bdc816a856" />
+  Note:However, the Docker figures alone do not explain the full 31 GB of workspace usage
 - Verify the codespaces host availlable disk space and found that all disk space has been used up. 
-  <img width="913" height="167" alt="image" src="https://github.com/user-attachments/assets/5652aecd-a2d4-4a34-b8ed-368450a71250" />
   <img width="1132" height="209" alt="image" src="https://github.com/user-attachments/assets/cbdd3541-54c0-49f8-932d-2cda7362df37" />
 
-Disk inspection using df -h showed the workspace filesystem at 100% usage, with approximately 31 GB used out of 32 GB.
+  Disk inspection using df -h showed the workspace filesystem at 100% usage, with approximately 31 GB used out of 32 GB.
 - Investigated the disk space consumption
-<img width="543" height="58" alt="image" src="https://github.com/user-attachments/assets/05a8b618-eb7c-4127-b13f-49f5a5202b65" />
-<img width="1203" height="279" alt="image" src="https://github.com/user-attachments/assets/18d12b99-cb0b-4875-99d5-ff712b7bcd39" />
-Compared filesystem utilization and workspace directory sizes to identify where storage was being consumed.
+  <img width="543" height="58" alt="image" src="https://github.com/user-attachments/assets/05a8b618-eb7c-4127-b13f-49f5a5202b65" />
+  <img width="1203" height="279" alt="image" src="https://github.com/user-attachments/assets/18d12b99-cb0b-4875-99d5-ff712b7bcd39" />
+  Compared filesystem utilization and workspace directory sizes to identify where storage was being consumed.
 #### Root cause
 - The failure was due to insufficient disk space.The Codespace workspace filesystem ran out of available disk space, preventing PostgreSQL from creating its required lock file.
 #### Solution
@@ -264,11 +263,76 @@ Compared filesystem utilization and workspace directory sizes to identify where 
 - Removed dangling Docker images using docker image prune -f.
 
 - Cleared the relevant cache to reclaim additional disk space:
-a. npm cache clean --force to clear the npm cache and
-b. docker builder prune -a -f to clear unused docker build cache.
-c. system prune -af to forcefully removed unused docker resources to free space
+  a. npm cache clean --force to clear the npm cache and
+  b. docker builder prune -a -f to clear unused docker build cache.
+  c. system prune -af to forcefully removed unused docker resources to free space
 2. The container was then successfully restarted.
-
+  
 ## 8. Security Considerations
 
 The project follows these security principles:
+
+- Do not commit `.env` files containing credentials.
+- Supply runtime configuration through the intended environment or secret-management mechanism.
+- Restrict exposed ports to the access required by the lab.
+- Treat a self-hosted runner as an execution environment that requires appropriate access controls.
+- Review Docker Compose networking and host firewall changes to avoid unnecessary exposure.
+
+This is a Codespaces-based deployment and testing lab, not a claim of production-grade infrastructure security.
+
+## 9. Reproduction and Validation
+
+Use the configuration committed to this repository as the source of truth when reproducing the deployment.
+
+### Prerequisites
+
+- Access to this GitHub repository.
+- Docker and Docker Compose available in the execution environment.
+- Docker Hub access if the workflow publishes images to a private or authenticated registry.
+- The required runtime environment variables.
+- A registered and running self-hosted runner if the workflow requires one.
+
+### Validation sequence
+
+1. Review the workflow and Docker Compose configuration.
+2. Check that required environment variables are available without printing secrets.
+3. Run the configured workflow and inspect its job logs.
+4. Confirm that the expected images and tags exist in Docker Hub.
+5. Check the state and logs of the deployed containers.
+6. Open the frontend and inspect its HTTP requests.
+7. Test the backend endpoint.
+8. Verify database connectivity and, when supported by the application, confirm that a browser-submitted record exists in PostgreSQL.
+
+Use the actual commands and endpoint URLs defined by the repository and Codespaces environment when carrying out these checks.
+
+## 10. Limitations and Future Improvements
+
+The current project demonstrates containerization, CI/CD automation, runtime configuration, service networking, and troubleshooting within a Codespaces environment.
+
+Potential improvements, depending on what is implemented and tested next, include:
+
+- Automated integration and end-to-end tests.
+- Explicit health checks and deployment validation in the workflow.
+- More structured log collection and troubleshooting.
+- Safer deployment rollback and image-version selection.
+- Improved secret management and restricted runner permissions.
+- Deployment to a dedicated cloud environment.
+
+These are improvement areas, not features claimed to be implemented in the current version.
+
+## 11. Skills Demonstrated
+
+- Docker image building and container execution.
+- Docker Compose service orchestration.
+- GitHub Actions workflow configuration.
+- Container image publishing to Docker Hub.
+- Self-hosted runner configuration and troubleshooting.
+- Nginx HTTP handling and request-path investigation.
+- Backend API and PostgreSQL connectivity troubleshooting.
+- Runtime environment configuration and credential handling.
+- Log inspection, root-cause analysis, and post-fix verification.
+- Documentation of architecture, deployment, and technical incidents.
+
+## Project Status
+
+This project is maintained as a practical DevOps learning and portfolio project. Its implementation and test claims should be evaluated against the committed configuration files and the evidence captured from actual workflow runs and runtime tests.
