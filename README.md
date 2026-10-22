@@ -95,7 +95,8 @@ GitHub Actions automates the steps configured in the repository's workflow. The 
 The following screenshot shows the actual completed GitHub Actions run, including its commit and job results.
 
 GitHub Actions workflow execution result
-<img width="1514" height="355" alt="image" src="https://github.com/user-attachments/assets/da8eceb2-ddbb-4fcf-9cdc-1a92911569ba" />
+<img width="1608" height="420" alt="image" src="https://github.com/user-attachments/assets/a45404a8-34ff-445a-830f-150381c40c9f" />
+
 
 
 ### Published container images
